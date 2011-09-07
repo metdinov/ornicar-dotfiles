@@ -25,7 +25,7 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=( main brackets)
 
 # CDPATH tells the cd command to look in
 # this colon-separated list of directories for your destination.
-CDPATH=:..:~/data:~/data/workspace
+CDPATH=:..:/etc
 
 # Load less keys
 lesskey "$DOTFILES/lesskeys"
