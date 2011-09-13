@@ -9,38 +9,6 @@
 # 9 orange
 # black -> white 8 0 10 11 12 14 7 15 
 
-# WEECHAT
-
-if [ -f /tmp/weechat_hotlist ]; then
-    hotlist=$(cat /tmp/weechat_hotlist)
-    if [ ! -z $hotlist ]; then
-        printf "%s " "$hotlist"
-    fi
-fi
-
-#for color in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
-    #printf "#[fg=colour$color]#$color#[default]"
-#done;
-
-# BATTERY
-
-infos=$(acpi -b)
-percent=$(echo $infos|sed "s/Battery .: [a-z]*, \([0-9]*\)%\(,.*\|$\)/\1/i")
-state=$(echo $infos|sed "s/Battery .: \([a-z]*\),.*/\1/i")
-if [ "$percent" -lt 5 ]; then modifier="#[bg=colour1,fg=colour15,bright]"
-elif [ "$percent" -lt 20 ]; then modifier="#[bg=colour3,fg=colour8,bright]"
-elif [ "$percent" -lt 50 ]; then modifier="#[fg=colour3]"
-else modifier="#[fg=colour2]"
-fi
-percent="$percent%"
-case $state in
-    "Charging") sign="|+|"; modifier="#[fg=green]" ;;
-    "Discharging") sign="|-|" ;;
-    "Full") sign="⚡"; percent= ;;
-    *) sign="$state" ;;
-esac
-printf "$modifier%s%s#[default]" "$percent" "$sign"
-
 # TEMPERATURE
 
 input=/sys/class/hwmon/hwmon0/temp1_input
