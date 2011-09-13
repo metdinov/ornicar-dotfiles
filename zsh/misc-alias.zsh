@@ -10,6 +10,9 @@ alias h='history'
 # Add suffix alias for less
 alias -g L='| less'
 
+# Better ls
+alias l='ls++'
+
 # Vim
 alias v="vim"
 
