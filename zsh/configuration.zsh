@@ -10,6 +10,8 @@ export BROWSER="browser"
 export EDITOR='vim'
 export GIT_EDITOR='vim'
 
+export MUNIN_LIBDIR='/usr/lib/munin'
+
 # Java/SBT configuration
 export SBT_OPTS="-Dfile.encoding=UTF8 -Xms388M -Xmx939M -Xss2M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=512m"
 #export SBT_OPTS = "-Dfile.encoding=UTF8 -Xms128M -Xmx1526M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=512m"
