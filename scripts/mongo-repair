@@ -1,9 +1,9 @@
 #!/bin/sh
 
-datapath=/home/thib/data/bin/mongodata
+datapath=/home/mongodb
 
-sudo /etc/rc.d/mongodb stop
+/etc/rc.d/mongodb stop
 rm $datapath/mongod.lock
-sudo mongod -f /etc/mongodb.conf --repair
-sudo chown -R mongodb:daemon $datapath
-sudo /etc/rc.d/mongodb start
+mongod -f /etc/mongodb.conf --repair
+chown -R mongodb:daemon $datapath
+/etc/rc.d/mongodb start
