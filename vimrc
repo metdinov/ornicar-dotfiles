@@ -241,8 +241,8 @@ nnoremap ' `
 " nnoremap j gj
 " nnoremap k gk
 
-" Fast save
-map <tab> :w<CR>
+" Fast save (also clears the search)
+map <tab> :w<cr>:nohl<cr>
 
 " Sudo to write
 cmap :w silent write !sudo tee % >/dev/null
@@ -365,6 +365,7 @@ com! -nargs=1 Qfdofile try | sil cfirst |
 
 " Gist
 let g:gist_open_browser_after_post = 1
+let g:gist_browser_command = "browser %URL% &"
 
 " Use ranger as vim file manager
 function! Ranger()

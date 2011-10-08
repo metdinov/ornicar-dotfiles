@@ -13,9 +13,6 @@ alias h='history'
 # Add suffix alias for less
 alias -g L='| less'
 
-# Better ls
-alias l='ls++'
-
 # Vim
 alias v="vim"
 
@@ -27,7 +24,8 @@ alias reload=". ~/.zshrc"
 
 # Start web server
 alias startwebserver="sudo /etc/rc.d/nginx start && sudo /etc/rc.d/php-fpm start && sudo /etc/rc.d/mongodb start && sudo /etc/rc.d/elasticsearch start"
-
+# Stop web server
+alias stopwebserver="sudo /etc/rc.d/nginx stop && sudo /etc/rc.d/php-fpm stop && sudo /etc/rc.d/mongodb stop && sudo /etc/rc.d/elasticsearch stop"
 # Restart web server
 alias restartwebserver="sudo /etc/rc.d/nginx restart && sudo /etc/rc.d/php-fpm restart && sudo /etc/rc.d/mongodb restart"
 
