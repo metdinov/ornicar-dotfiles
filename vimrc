@@ -70,9 +70,9 @@ set autoindent
 set smartindent
 
 " Configure tabstyle...
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 
 " But make it easy to switch it to 2 or 4 spaces
 nmap <leader>2 :set tabstop=2<cr>:set shiftwidth=2<cr>
@@ -95,12 +95,6 @@ function! TabToggle()
 endfunction
 nmap <leader><tab> mz:execute TabToggle()<CR>'z
 
-" Reduce the strain in my left pinky by using C-t for <esc>
-inoremap <C-t> <esc>
-nnoremap <C-t> <esc>
-vnoremap <C-t> <esc>
-cnoremap <C-t> <esc>
-
 " Use perl regex style
 nnoremap / /\v
 vnoremap / /\v
@@ -117,7 +111,7 @@ set gdefault
 set cursorline
 
 " Reduce timeout for key codes
-set timeout timeoutlen=800 ttimeoutlen=0
+set timeout timeoutlen=700 ttimeoutlen=0
 
 " When editing a file, always jump to the last known cursor position.
 autocmd BufReadPost *
@@ -242,7 +236,7 @@ nnoremap ' `
 " nnoremap k gk
 
 " Fast save (also clears the search)
-map <tab> :w<cr>:nohl<cr>
+map <tab> :nohl<cr>:w<cr>
 
 " Sudo to write
 cmap :w silent write !sudo tee % >/dev/null
@@ -336,15 +330,11 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-" Snipmate
-let g:snips_author = 'Thibault Duplessis <thibault.duplessis@gmail.com>'
-let g:snips_trigger_key = '<c-s>'
-let g:snips_trigger_key_backwards='<c-;>'
-
 " Command-T search
-nmap <silent> <leader>mf :CommandT<CR>
+nmap <silent> <leader>mf :CommandT<cr>
 " Flush then search
-nmap <silent> <leader>mF :CommandT<CR>
+nmap <silent> <leader>mF :CommandTFlush<cr>:CommandT<cr>
+
 " Increase cache size
 let g:CommandTMaxFiles = 30000
 let g:CommandTMatchWindowAtTop = 1
