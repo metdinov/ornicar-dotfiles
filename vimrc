@@ -18,10 +18,12 @@ colorscheme solarized
 
 let mapleader = ","
 
-set history=2000                " Sets how many lines of history VIM has to remember
+set clipboard=unnamedplus         " Alias unnamed register to the + register, which is the X Window clipboard.
 
-set undolevels=1000             " use many levels of undo
-set noundofile                  " Don't keep a persistent undofile
+set history=2000                  " Sets how many lines of history VIM has to remember
+
+set undolevels=1000               " use many levels of undo
+set noundofile                    " Don't keep a persistent undofile
 
 set nospell                       " Disable spell checking
 
@@ -36,7 +38,7 @@ set hidden                        " Handle multiple buffers better.
 
 set wildmenu                      " Enhanced command line completion.
 set wildmode=list:longest         " Complete files like a shell.
-set wildignore=.svn,CVS,.git,.hg,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,*.pyc,*.pyo,*.log,**/cache/**,**/logs/**,**/zend/**,**/bootstrap.*,**/vendor/**/vendor/**,web/css,web/js,web/bundles,*/project/*,*/target/*,*.hi
+set wildignore=.svn,CVS,.git,.hg,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,*.pyc,*.pyo,*.log,**/cache/**,**/logs/**,**/zend/**,**/bootstrap.*,**/vendor/**/vendor/**,web/css,web/js,web/bundles,*/project/*,*/target/*,*.hi,tags
 
 set number                        " Show line numbers.
 set ruler                         " Show cursor position.
@@ -342,6 +344,8 @@ let g:CommandTMatchWindowAtTop = 1
 " Filetype detection extensions
 au BufNewFile,BufRead *vimperatorrc*,*.vimp set filetype=vimperator
 au BufNewFile,BufRead *.twig set filetype=twig
+au BufNewFile,BufRead *.md set filetype=markdown
+au BufNewFile,BufRead *.rc set filetype=conf
 
 " Processing results in quickfix http://efiquest.org/2009-02-19/32/
 com! -nargs=1 Qfdo try | sil cfirst |

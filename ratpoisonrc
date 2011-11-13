@@ -1,9 +1,13 @@
 # Change prefix
-escape C-b
+escape C-t
+
+# Create second group
+gnewbg second
 
 # ----------------------------------------------------------------
 # Builtin bindings that I remove (makes the ? info window less cluttered)
 # ------------------------------------------------------------------
+unbind C-t # other (use alt-space)
 unbind a # time
 unbind b # bannish
 unbind c # console
@@ -41,7 +45,17 @@ startup_message off
 bind c exec urxvtc
 
 # Remap bannish to browser
-bind b exec /home/thib/bin/browser
+bind b exec firefox-beta-bin
+
+# Switch group
+bind C-t exec ratpoison -c "select -" -c "gnext" -c "next" 
+
+# Move current window to default group
+bind M-1 gmove default
+# Move current window to second group
+bind M-2 gmove second
+
+definekey top C-equal exec /home/thib/.scripts/touchpad_toggle
 
 # Next window
 definekey top C-space next
@@ -54,3 +68,4 @@ definekey top M-t exec ~/.scripts/music toggle
 definekey top M-equal exec ~/.scripts/music up
 definekey top M-minus exec ~/.scripts/music down
 definekey top M-m exec urxvtc -e ~/.scripts/music ui
+definekey top M-a exec urxvtc -e alsamixer

@@ -69,5 +69,5 @@ printf " #[fg=colour10,dim](%d|%d+%d:%d|%s)#[default]" $data[1] $data[2] $data[4
 
 # FRENCH DATE
 
-export TZ="Europe/Paris"
+#export TZ="Europe/Paris"
 printf " #[fg=colour12]$(date +"%a %b %d") $(date +"%H:%M")#[default]"

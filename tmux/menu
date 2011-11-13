@@ -3,7 +3,9 @@
 tmuxinatorpath="$HOME/.tmuxinator/"
 
 ratmenu -fg "#00ff22" -bg "#444444" -style dreary -shell /bin/zsh \
-    media "source $tmuxinatorpath/media.tmux" \
-    lichess "source $tmuxinatorpath/lichess.tmux" \
-    workspace "source $tmuxinatorpath/workspace.tmux" \
-    scalex "source $tmuxinatorpath/scalex.tmux" \
+    archlinux "mux archlinux" \
+    lichess "mux lichess" \
+    scalex "mux scalex" \
+    aichallenge "mux aichallenge" \
+    sacem "mux sacem" \
+    reaper "mux reaper" \
