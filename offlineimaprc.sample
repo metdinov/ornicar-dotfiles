@@ -1,0 +1,19 @@
+[general]
+ui = ttyui
+accounts = ThibaultDuplessis
+pythonfile=~/.mutt/offlineimap.py
+
+[Account ThibaultDuplessis]
+localrepository = ThibaultDuplessis-Local
+remoterepository = ThibaultDuplessis-Remote
+
+[Repository ThibaultDuplessis-Local]
+type = Maildir
+localfolders = ~/.mail/thibault.duplessis.gmail.com
+
+[Repository ThibaultDuplessis-Remote]
+type = Gmail
+remoteuser = thibault.duplessis@gmail.com
+remotepass = xxx
+realdelete = no
+nametrans = lambda folder: re.sub('.*Spam$', 'spam', re.sub('.*Drafts$', 'drafts', re.sub('.*Sent Mail$', 'sent', re.sub('.*Starred$', 'flagged', re.sub('.*Trash$', 'trash', re.sub('.*All Mail$', 'archive', folder))))))

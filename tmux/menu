@@ -1,11 +1,11 @@
 #!/bin/zsh
 
-tmuxinatorpath="$HOME/.tmuxinator/"
+projects=$(ls -l ~/.tmuxinator/| grep "^-" | awk {'print $9'} | cut -d. -f1)
 
-ratmenu -fg "#00ff22" -bg "#444444" -style dreary -shell /bin/zsh \
-    archlinux "mux archlinux" \
-    lichess "mux lichess" \
-    scalex "mux scalex" \
-    aichallenge "mux aichallenge" \
-    sacem "mux sacem" \
-    reaper "mux reaper" \
+source ${XDG_CONFIG_HOME:-$HOME/.config}/solarized/colors.ini
+
+project=$(echo $projects | /home/thib/dotfiles/scripts/dmenu-dark -p "TMUX workspace ")
+
+[ -z "$project" ] && exit
+
+mux "$project"

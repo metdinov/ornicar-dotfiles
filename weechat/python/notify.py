@@ -61,18 +61,25 @@ def notify_show(data, bufferp, uber_empty, tagsn, isdisplayed, ishilight, prefix
         buffer = (weechat.buffer_get_string(bufferp, "short_name") or weechat.buffer_get_string(bufferp, "name"))
         show_notification(buffer, prefix + weechat.config_get_plugin('nick_separator') + message)
 
+    #terminal_bell()
+
     return weechat.WEECHAT_RC_OK
+
+def terminal_bell():
+    f = open('/dev/tty', 'w')
+    f.write('\a')
+    f.close()
 
 def show_notification(chan, message):
     #weechat.prnt("", "Notify %s: %s" % (chan, message))
-    if(chan != ""):
-        display = '%s\n%s' % (encode_string(chan), encode_string(message))
-    else:
-        display = '%s' % (encode_string(message))
+    #if(chan != ""):
+        #display = '%s\n%s' % (encode_string(chan), encode_string(message))
+    #else:
+        #display = '%s' % (encode_string(message))
 
-    command = 'ratpoison -c "echo %s"' % display
+    #command = 'ratpoison -c "echo %s"' % display
 
-    os.system(command)
+    #os.system(command)
 
 def encode_string(string):
     string = string.replace('"', '\\"').replace('`', '\\`')

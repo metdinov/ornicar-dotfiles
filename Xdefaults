@@ -2,7 +2,6 @@
 Xcursor.theme: CG
 
 ! Colors
-!#include "/home/thib/.xcolors/ornicar.xcolors"
 #include "/home/thib/.xcolors/solarized.xcolors"
 
 ! Fonts {{{
@@ -13,7 +12,8 @@ Xft.hintstyle: hintfull
 ! }}}
 
 ! Urxvt {{{
-urxvt.font:  xft:Inconsolata:size=14
+urxvt.font:       xft:Inconsolata:size=14
+urxvt.boldFont:   xft:Inconsolata:size=14
 
 URxvt*scrollBar:  false
 URxvt*jumpScroll: true
@@ -36,7 +36,7 @@ URxvt*cursorBlink:     true
 
 ! URLs in rxvt
 URxvt*perl-ext-common: default,selection,url-select,clipboard
-URxvt*urlLauncher:     firefox-beta-bin
+URxvt*urlLauncher:     firefox
 URxvt.keysym.M-u:      perl:url-select:select_next
 URxvt.underlineURLs:   true
 URxvt.keysym.M-p:      perl:clipboard:paste

@@ -3,5 +3,5 @@
 project_name: lichess
 project_root: ~/lichess
 tabs:
-  - vim: vim
-  - git: 
+  - code: cd ~/lichess && vim
+  - shell: cd ~/lichess
