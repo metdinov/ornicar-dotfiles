@@ -1,4 +1,4 @@
-returncode="%(?.%{$fg[yellow]%}PHOBOS ⚡ .%{$fg[red]%}PHOBOS ⚡ )"
+returncode="%(?.%{$fg[yellow]%}MARTY ⚡ .%{$fg[red]%}MARTY ⚡ )"
 
 PROMPT='${returncode}%{$fg_bold[cyan]%}%C$(git_prompt_info)%{$reset_color%} %'
 
