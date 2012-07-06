@@ -40,5 +40,3 @@ stty -ixon -ixoff
 
 # Add dircolors
 eval $(dircolors $DOTFILES/zsh/dircolors-solarized/dircolors.ansi-dark)
-
-eval `keychain --eval --agents ssh --nogui -Q -q id_rsa`
