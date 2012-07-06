@@ -1,3 +1,6 @@
+# Don't halt your server
+alias halt='echo "Nope."'
+
 # Go back 3 times
 alias ....='cd ../../..'
 

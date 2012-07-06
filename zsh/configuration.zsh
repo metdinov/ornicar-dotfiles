@@ -12,6 +12,8 @@ export BROWSER="firefox"
 export EDITOR='vim'
 export GIT_EDITOR='vim'
 
+export MUNIN_LIBDIR='/usr/lib/munin'
+
 # Java/SBT configuration
 export SBT_OPTS="-Dfile.encoding=UTF8 -Xms256M -Xmx2048M -Xss4M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=2048M"
 #export SBT_OPTS="-Dfile.encoding=UTF8 -Xms256M -Xmx512M -Xss2M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=512M -XX:+HeapDumpOnOutOfMemoryError"
