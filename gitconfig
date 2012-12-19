@@ -11,8 +11,8 @@
   remote = green
 
 [color "diff"]
-  meta = yellow 
-  frag = magenta 
+  meta = yellow bold
+  frag = magenta bold
   old = red 
   new = green 
 
@@ -75,11 +75,18 @@
   whatis = show -s --pretty='tformat:%h (%s, %ad)' --date=short
 
     # Add modified files to previous commit
-  oups = "!git add -A -v && git commit --amend -C HEAD"
+  oups = !"git add -A -v && git commit --amend -C HEAD"
 
     # nice logs
   l = log --decorate --graph --date=short --pretty=\"format:%C(blue)%ad%Creset %C(yellow)%h%C(green)%d%Creset %C()%s %C(black) [%an]%Creset\"
   changes = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\" --name-status
+  mini = log --pretty=format:\"%h\" 
   short = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\" 
   changelog = log --pretty=format:\" * %s\" 
   shortnocolor = log --pretty=format:\"%h %cr %cn %s\" 
+[github]
+	user = ornicar
+[rerere]
+  # Remember my merges
+  # http://gitfu.wordpress.com/2008/04/20/git-rerere-rereremember-what-you-did-last-time/
+  enabled = true

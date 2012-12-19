@@ -4,6 +4,12 @@ alias halt='echo "Nope."'
 # Go back 3 times
 alias ....='cd ../../..'
 
+# Propagate user config
+alias _='sudo -E'
+
+# List directory contents
+alias l='ls -lah'
+
 # Sort dirs by weight
 alias ducks='du -cks * | sort -rn|head -20'
 
@@ -21,6 +27,9 @@ alias r="ranger"
 
 # AlsaMixer
 alias a="alsamixer"
+
+# Extract anything
+alias x="dtrx"
 
 # PHPUnit
 alias phpunituntil="phpunit --stop-on-failure --stop-on-error"

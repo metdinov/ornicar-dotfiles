@@ -1,22 +1,19 @@
 import XMonad
 import XMonad.Layout.NoBorders
-import XMonad.Layout.Accordion
 import XMonad.Util.EZConfig
-import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.ManageHelpers
-import Graphics.X11.ExtraTypes.XF86
 
 import qualified XMonad.StackSet as W
 
-main = xmonad $ withUrgencyHook dzenUrgencyHook { args = ["-bg", "darkgreen", "-xs", "1"] }
-              $ myConfig
+main = xmonad $ withUrgencyHook dzenArgs myConfig
+  where dzenArgs = dzenUrgencyHook { args = ["-bg", "darkgreen", "-xs", "1"] }
 
 ------------------------------------------------------------------------
 -- Workspaces
 -- The default number of workspaces (virtual screens) and their names.
 --
-myWorkspaces = ["1:system","2:main","3:network"] ++ map show [4..6]
+myWorkspaces = ["1:system","2:main","3:network"] ++ map show [4..9]
 
 myLayout = noBorders Full ||| noBorders tiled
   where
@@ -77,7 +74,6 @@ myConfig = defaultConfig {
   `additionalKeysP` [
       ("C-<Space>", windows W.focusDown)
     , ("M-S-l",   sendMessage NextLayout) -- next layout
-    , ("M-l", windows W.focusDown) -- next window
     , ("M-o",   spawn "~/.scripts/path-dmenu")
     , ("M-r",   spawn "urxvtc -e ranger")
     , ("M-a",   spawn "urxvtc -e alsamixer")
@@ -89,9 +85,4 @@ myConfig = defaultConfig {
     , ("M-w",   spawn "urxvtc -e wicd-curses")
     , ("C-m",   spawn "~/.scripts/touchpad_toggle")
     , ("M-S-p", spawn "~/.scripts/screenshot")           -- Take a screenshot
-  ]
-  `additionalKeys` [
-    ((0, xF86XK_AudioMute),          spawn "amixer -q set PCM toggle")
-    , ((0, xF86XK_AudioRaiseVolume), spawn "amixer -q set PCM 15+")
-    , ((0, xF86XK_AudioLowerVolume), spawn "amixer -q set PCM 15-")
   ]

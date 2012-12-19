@@ -1,5 +1,5 @@
 " theme
-"source /home/thib/.vimperator/color/desert_revisited.vimp
+source /home/thib/.vimperator/color/solarized.vimp
 
 let mapleader = ","
 
@@ -12,9 +12,9 @@ vnoremap n j
 nnoremap N 9j
 vnoremap N 3j
 " previous -> prev tab
-nnoremap <C-n> gT
-vnoremap <C-n> <nop>
-inoremap <C-n> <esc>gT
+nnoremap <C-e> gT
+vnoremap <C-e> <nop>
+inoremap <C-e> <esc>gT
 " down -> next search
 nnoremap j n
 vnoremap j n
@@ -29,9 +29,9 @@ vnoremap e k
 nnoremap E 9k
 vnoremap E 3k
 " end inclusive -> next tab
-nnoremap <C-e> gt
-vnoremap <C-e> <nop>
-inoremap <C-e> <esc>gt
+nnoremap <C-n> gt
+vnoremap <C-n> <nop>
+inoremap <C-n> <esc>gt
 
 noremap h H
 noremap l L
@@ -78,7 +78,5 @@ noremap <leader>s :hipchatjumptoprevious<CR><esc>
 " noscript 
 noremap <leader>n :noscript popup<cr>
 
-" autocommand
-" ======================================
-" automatic pass-through mode on certain pages (do ':h autocommands' for details)
-"autocmd LocationChange .* :js modes.passAllKeys = /mail\.google\.com/.test(buffer.URL)
+" commands
+noremap <leader>S :source ~/.vimperatorrc<cr>

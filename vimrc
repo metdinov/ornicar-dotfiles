@@ -14,7 +14,7 @@ set t_Co=16
 let g:solarized_termcolors=16
 let g:solarized_termtrans=0
 let g:solarized_menu=0
-let g:solarized_italic=0
+let g:solarized_italic=1
 set background=dark
 colorscheme solarized
 
@@ -24,10 +24,11 @@ set autoread                      " Automatically read a file that has changed o
 
 set clipboard=unnamedplus         " Alias unnamed register to the + register, which is the X Window clipboard.
 
-set history=2000                  " Sets how many lines of history VIM has to remember
+set history=9000                  " Sets how many lines of history VIM has to remember
 
-set undolevels=1000               " use many levels of undo
-set noundofile                    " Don't keep a persistent undofile
+set undolevels=2000               " use many levels of undo
+set undodir=~/.cache/vim/undo      " persistent undo
+set undofile
 
 set nospell                       " Disable spell checking
 
@@ -42,7 +43,7 @@ set hidden                        " Handle multiple buffers better.
 
 set wildmenu                      " Enhanced command line completion.
 set wildmode=list:longest         " Complete files like a shell.
-set wildignore=.svn,CVS,.git,.hg,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,*.pyc,*.pyo,**/cache/**,**/logs/**,**/zend/**,**/bootstrap.*,**/vendor/**/vendor/**,web/css,web/js,web/bundles,*/project/*,*/target/*,*.hi,tags
+set wildignore=.svn,CVS,.git,.hg,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,*.pyc,*.pyo,**/cache/**,**/logs/**,**/zend/**,**/bootstrap.*,**/vendor/**/vendor/**,web/css,web/js,web/bundles,*/project/*,*/target/*,.rsync_cache/*,*.hi,tags,dist/*
 
 set number                        " Show line numbers.
 set ruler                         " Show cursor position.
@@ -53,7 +54,7 @@ set incsearch                     " Highlight matches as you type.
 set hlsearch                      " Highlight matches.
 set showmatch                     " Show matching char (like {})
 
-set wrap                          " Turn on line wrapping.
+set nowrap                        " Turn off line wrapping.
 set scrolloff=7                   " Show 7 lines of context around the cursor.
 set sidescrolloff=7
 
@@ -148,10 +149,13 @@ set encoding=utf-8
 
 " Enable folding by indentation
 set foldmethod=indent
-set fillchars=fold:⋯,diff:⣿
+set fillchars=fold:\ ,diff:⣿
+" open/close fold
+map <space><space> zA
 " go to next fold and open it
-map zz zjzo
+map <leader><space><space> zjzo
 " Disable folding by default
+" zi toggles the folding
 set nofoldenable
 
 " Change statusbar color
@@ -165,11 +169,9 @@ noremap H ^
 noremap L $
 
 " Toggle line numbering
-set nonumber
 nnoremap <silent> <leader>nn :set nonumber!<cr>
 
 " Toggle nowrap
-set nowrap
 nnoremap <silent> <leader>nw :set nowrap!<cr>
 
 " Close other windows
@@ -225,7 +227,7 @@ set diffopt=filler,vertical
 set diffopt+=iwhite
 
 " Fast open vertical help
-nmap <leader>h <Esc>:vert help<cr>:vert resize 80<cr>:vert help<space>
+nmap <leader>H <Esc>:vert help<cr>:vert resize 80<cr>:vert help<space>
 
 " Clear search highlight
 nmap <silent> <leader>/ :nohl<cr>
@@ -244,7 +246,7 @@ nmap <leader>sr :!ack -l <C-r>=expand("<cword>")<cr> \|
   \ xargs perl -pi -E 's/<C-r>=expand("<cword>")<cr>//g'<left><left><left>
 
 " Ack
-let g:ackprg="ack -H --nocolor --nogroup --column"
+let g:ackprg = 'ag --nogroup --nocolor --column'
 " Set a mark then search with Ack
 nmap <leader>a mA:Ack<space>
 " Set a mark, then pull word under cursor into Ack for a global search
@@ -253,12 +255,6 @@ nmap <leader>zA mA:Ack "<C-r>=expand("<cWORD>")<cr>"
 
 " yuml
 nmap <silent> <leader>yu :w !~/.scripts/yuml<cr>
-
-" Align
-" Disable default mappings
-let g:loaded_AlignMapsPlugin=1
-
-vnoremap a :Align<space>
 
 " Start a substitute
 nmap <leader>ss :%s/\v
@@ -305,6 +301,12 @@ endfunction
 vnoremap * :<C-u>call <SID>VSetSearch()<cr>//<cr><c-o>
 vnoremap # :<C-u>call <SID>VSetSearch()<cr>??<cr><c-o>
 
+" Autoresize quickfix window http://vim.wikia.com/wiki/Automatically_fitting_a_quickfix_window_height
+au FileType qf call AdjustWindowHeight(1, 20)
+function! AdjustWindowHeight(minheight, maxheight)
+  exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
+endfunction
+
 " Navigate in quickfix window
 nmap ]q :<C-U>exe "cnext ".(v:count ? v:count : "")<cr>
 nmap [q :<C-U>exe "cprevious ".(v:count ? v:count : "")<cr>
@@ -321,9 +323,38 @@ nmap R :let _pfn="<C-R>=expand("%:.")<cr>"<cr>q:iRename <C-R>=expand(_pfn)<cr><e
 " Make the current file executable
 nmap <leader>% :Silent chmod +x %<cr>
 
+" haskell vim2hs
+let g:haskell_conceal = 1
+let g:haskell_conceal_wide = 0
+" let g:haskell_conceal_enumerations = 1
+" let g:haskell_conceal_comments = 1
+" let g:haskell_conceal_bad = 1
+let g:haskell_autotags = 1
+let g:haskell_tags_generator = 'fast-tags'
+let g:hpaste_author = 'github.com/ornicar'
+let g:hlint_args = ''
+
+" haskellmode
+let g:haddock_browser = 'firefox'
+let g:haddock_docdir="/usr/share/doc/ghc/html/"
+let g:haddock_indexfiledir=$HOME.'/.cache/'
+
+" commentary
+nmap <leader>c<space> <Plug>CommentaryLine
+vmap <leader>c<space> <Plug>Commentary
+
+" tabularize
+
+nmap <leader>T :Tabularize<space>
+vmap <leader>T :Tabularize<space>
+
 " CTAGS
 " Rebuild tags
-nmap <leader>ct :!ctags&<cr><cr>
+if filereadable('.ctags')
+  nmap <leader>ct :!ctags&<cr><cr>
+else
+  nmap <leader>ct :!ctags -R .&<cr><cr>
+end
 " Jump to next tag match
 nmap ]t :bd<cr>:tnext<cr>
 " Jump to previous tag match
@@ -348,9 +379,27 @@ nmap <leader>gl :Git log -p %<cr>
 " Show tig
 nmap <silent>ti :!tig status<cr>
 
-" Configure supertab
-let g:SuperTabCrMapping = 0
-let g:SuperTabDefaultCompletionType = "context"
+" neocomplcache
+let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_smart_case = 'infercase'
+let g:neocomplcache_enable_auto_select = 0
+let g:neocomplcache_enable_cursor_hold_i = 1
+let g:neocomplcache_enable_insert_char_pre = 1
+let g:neocomplcache_temporary_dir = '~/.cache/neocon'
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+" Enable heavy omni completion.
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+" let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
+let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 
 " Lusty juggler
 let g:LustyJugglerKeyboardLayout = "colemak"
@@ -375,18 +424,18 @@ let g:ctrlp_working_path_mode = 0
 let g:ctrlp_open_new_file = 3 " open in current window
 let g:ctrlp_extensions = ['tag']
 let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
-nmap <silent> <leader>mf :CtrlP<cr>
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_map = '<leader>mf'
+let g:ctrlp_user_command = {
+  \ 'types': {
+    \ 1: ['.git', 'cd %s && git ls-files'],
+    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+    \ },
+  \ 'fallback': ''
+  \ }
 nmap <silent> <leader>mF :ClearCtrlPCache<cr>:CtrlP<cr>
 nmap <silent> <leader>mb :CtrlPBuffer<cr>
 nmap <silent> <leader>t :CtrlPTag<cr>
-
-let g:NERDCustomDelimiters = {
-      \ 'haskell': { 'left': '--' , 'right': '' },
-      \ 'hamlet' : { 'left': '\<!-- ', 'right': ' -->' },
-      \ 'cassius': { 'left': '/* ' , 'right': ' */' },
-      \ 'lucius' : { 'left': '/* ' , 'right': ' */' },
-      \ 'julius' : { 'left': '//' , 'right': '' }
-      \ }
 
 " Redraw
 nmap <leader>rr :redraw!<cr>
@@ -456,7 +505,16 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
       \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
       \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<cr>
 
-" Source local settings
+" Source user settings
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
 endif
+
+" Source project settings
+if filereadable('.vimrc.local')
+  source .vimrc.local
+endif
+
+" Translate the content of selection
+" Classy.
+vmap <leader>ee :s/\n/ /e<cr>:s/\./;/e<cr><esc>0vLhy"=system('google-translate fr en ' . shellescape("<C-R>""))<cr>p:s/​//e<cr>:s/;/./e<cr>:nohl<cr>o<esc>

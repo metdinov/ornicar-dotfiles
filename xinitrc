@@ -8,12 +8,7 @@ setxkbmap -option terminate:ctrl_alt_bksp
 # Remap keys
 xmodmap $HOME/.Xmodmap &&
 
-xrdb $HOME/.Xdefaults                       # load Xdefaults
-
-nouveau=$(lsmod | grep nouveau | wc -l)
-if [ ! 0 -eq $nouveau ]; then
-	xrdb -override $HOME/dotfiles/Xdefaults.bigscreen
-fi
+xrdb $HOME/.Xresources                       # load Xresources
 
 xsetroot -solid black                       # black background
 xset s 300 300                              # set monitor to sleep
@@ -27,4 +22,4 @@ $HOME/.scripts/collector_daemon &           # start cpu and lichess data collect
 urxvtc -e $HOME/.tmux/menu &
 
 # Run window manager
-exec /home/thib/.cabal/bin/xmonad
+exec xmonad

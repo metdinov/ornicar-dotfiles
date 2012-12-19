@@ -1,7 +1,3 @@
-[submodule "vim/bundle/nerdcommenter"]
-  path = vim/bundle/nerdcommenter
-  url = git://github.com/ornicar/nerdcommenter.git
-  ignore = untracked
 [submodule "vim/bundle/lusty"]
   path = vim/bundle/lusty
   url = git://github.com/ornicar/lusty.git
@@ -33,10 +29,6 @@
 [submodule "oh-my-zsh"]
   path = oh-my-zsh
   url = git://github.com/ornicar/oh-my-zsh
-[submodule "vim/bundle/supertab"]
-  path = vim/bundle/supertab
-  url = git://github.com/ervandew/supertab.git
-  ignore = untracked
 [submodule "vim/bundle/fugitive"]
   path = vim/bundle/fugitive
   url = git://github.com/tpope/vim-fugitive
@@ -48,14 +40,6 @@
 [submodule "vim/bundle/repeat"]
   path = vim/bundle/repeat
   url = git://github.com/tpope/vim-repeat.git
-  ignore = untracked
-[submodule "vim/bundle/php-namespace"]
-  path = vim/bundle/php-namespace
-  url = git://github.com/arnaud-lb/vim-php-namespace.git
-  ignore = untracked
-[submodule "vim/bundle/tlib"]
-  path = vim/bundle/tlib
-  url = git://github.com/tomtom/tlib_vim.git
   ignore = untracked
 [submodule "vim/vendor/javascript"]
   path = vim/vendor/javascript
@@ -79,10 +63,6 @@
   path = zsh/dircolors-solarized
   url = https://github.com/seebi/dircolors-solarized
   ignore = untracked
-[submodule "vim/bundle/align"]
-  path = vim/bundle/align
-  url = https://github.com/tsaleh/vim-align
-  ignore = untracked
 [submodule "vim/bundle/ctrlp"]
 	path = vim/bundle/ctrlp
 	url = https://github.com/kien/ctrlp.vim
@@ -105,3 +85,47 @@
 [submodule "vim/bundle/commaobject"]
 	path = vim/bundle/commaobject
 	url = https://github.com/austintaylor/vim-commaobject
+[submodule "vim/bundle/commentary"]
+	path = vim/bundle/commentary
+	url = git://github.com/tpope/vim-commentary.git
+[submodule "vim/bundle/webapi"]
+	path = vim/bundle/webapi
+	url = https://github.com/mattn/webapi-vim
+[submodule "zsh/history-substring-search"]
+	path = zsh/history-substring-search
+	url = https://github.com/zsh-users/zsh-history-substring-search
+[submodule "vim/bundle/vimproc"]
+	path = vim/bundle/vimproc
+	url = https://github.com/Shougo/vimproc
+[submodule "vim/bundle/neco-ghc"]
+	path = vim/bundle/neco-ghc
+	url = https://github.com/ujihisa/neco-ghc
+[submodule "vim/bundle/ghcmod"]
+	path = vim/bundle/ghcmod
+	url = https://github.com/eagletmt/ghcmod-vim
+[submodule "vim/bundle/vim2hs"]
+	path = vim/bundle/vim2hs
+	url = https://github.com/dag/vim2hs
+[submodule "vim/bundle/hoogle"]
+	path = vim/bundle/hoogle
+	url = https://github.com/Twinside/vim-hoogle
+  ignore = untracked
+[submodule "vim/bundle/neocomplcache"]
+	path = vim/bundle/neocomplcache
+	url = https://github.com/Shougo/neocomplcache
+[submodule "vim/bundle/bufonly"]
+	path = vim/bundle/bufonly
+	url = https://github.com/duff/vim-bufonly
+[submodule "vim/bundle/tabular"]
+	path = vim/bundle/tabular
+	url = https://github.com/godlygeek/tabular
+[submodule "vim/bundle/matchit"]
+	path = vim/bundle/matchit
+	url = https://github.com/tsaleh/vim-matchit
+  ignore = untracked
+[submodule "zsh/cabal-completion"]
+	path = zsh/cabal-completion
+	url = https://github.com/supki/zsh-cabal-completion
+[submodule "vim/bundle/ruby-support"]
+	path = vim/bundle/ruby-support
+	url = git://github.com/vim-ruby/vim-ruby.git

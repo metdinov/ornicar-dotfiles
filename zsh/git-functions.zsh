@@ -16,8 +16,8 @@ git-stash-pull-rebase() {
 
 # Get the current branch name if any
 git-current-branch() {
-  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-  echo ${ref#refs/heads/}
+    ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+    echo ${ref#refs/heads/}
 }
 
 # Push to a remote wich has no write url defined :)
@@ -40,5 +40,21 @@ git-create-write() {
 git-set-upstream() {
     [ -z $1 ] && 1=origin
     branch=$(git-current-branch)
-    git branch --set-upstream $branch $1/$branch
+    git push $1 $branch --set-upstream
+}
+
+# Forward git commands to hub
+git() {
+    hub "$@"
+}
+
+# Goes up the tree to the git root dir
+g-() {
+    d=".."
+    while [[ $(realpath $d) != "/" && ! -d $d/.git ]]; do
+        d="$d/.."
+    done
+    if [[ $(realpath $d) != "/" ]]; then
+        cd $d
+    fi
 }

@@ -13,7 +13,7 @@ OHMYZSH=$DOTFILES/oh-my-zsh
 for config_file ($OHMYZSH/lib/*.zsh) source $config_file
 
 # Load chosen oh-my-zsh plugins
-for plugin in archlinux extract; do
+for plugin in archlinux; do
     source $OHMYZSH/plugins/$plugin/$plugin.plugin.zsh
 done
 
@@ -24,10 +24,11 @@ for zsh_file ($DOTFILES/zsh/*.zsh) source $zsh_file
 source $DOTFILES/zsh/syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Add history substring search
-source $OHMYZSH/plugins/history-substring-search/history-substring-search.zsh
+source $DOTFILES/zsh/history-substring-search/zsh-history-substring-search.zsh
 
 # Enable completion after all plugins are loaded
 autoload -U compinit
+fpath=($DOTFILES/zsh/cabal-completion $fpath)
 compinit -i
 
 # Load private configuration

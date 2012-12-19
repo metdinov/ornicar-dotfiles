@@ -1,3 +1,4 @@
 #!/bin/sh
 
-sudo wget -O /usr/bin/ttytter http://www.floodgap.com/software/ttytter/dist2/2.0.01.txt
+wget -O ~/bin/ttytter http://www.floodgap.com/software/ttytter/dist2/2.0.04.txt
+chmod +x ~/bin/ttytter
