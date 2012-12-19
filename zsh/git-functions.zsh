@@ -43,11 +43,6 @@ git-set-upstream() {
     git push $1 $branch --set-upstream
 }
 
-# Forward git commands to hub
-git() {
-    hub "$@"
-}
-
 # Goes up the tree to the git root dir
 g-() {
     d=".."
