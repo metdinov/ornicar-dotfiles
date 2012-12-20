@@ -1,0 +1,9 @@
+#!/bin/sh
+
+echo "Graph"
+spawn-fcgi -s /var/run/munin/fastcgi-graph.sock -U www-data \
+  -u munin -g munin /usr/lib/cgi-bin/munin-cgi-graph
+
+echo "HTML"
+spawn-fcgi -s /var/run/munin/fastcgi-html.sock -U www-data \
+  -u munin -g munin /usr/lib/cgi-bin/munin-cgi-html
