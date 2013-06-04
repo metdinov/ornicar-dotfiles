@@ -1,7 +1,7 @@
 ! Cursor theme
 Xcursor.theme: CG
 
-! Colors
+! Colors - also see scripts/xcolor for switching
 #include "/home/thib/.xcolors/solarized.xcolors"
 
 ! Fonts 
@@ -10,8 +10,8 @@ Xcursor.theme: CG
 ! Xft.rgba:      rgb
 ! Xft.hintstyle: hintfull
 
-URxvt.font:       xft:inconsolata:size=16
-URxvt.boldFont:   xft:inconsolata:size=16
+URxvt.font:       xft:inconsolata:size=12
+URxvt.boldFont:   xft:inconsolata:size=12
 
 URxvt.scrollBar:  false
 URxvt.jumpScroll: true

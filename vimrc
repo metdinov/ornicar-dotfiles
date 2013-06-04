@@ -43,7 +43,7 @@ set hidden                        " Handle multiple buffers better.
 
 set wildmenu                      " Enhanced command line completion.
 set wildmode=list:longest         " Complete files like a shell.
-set wildignore=.svn,CVS,.git,.hg,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,*.pyc,*.pyo,**/cache/**,**/logs/**,**/zend/**,**/bootstrap.*,**/vendor/**/vendor/**,web/css,web/js,web/bundles,*/project/*,*/target/*,.rsync_cache/*,*.hi,tags,dist/*
+set wildignore=.svn,CVS,.git,.hg,*.o,*.a,*.class,*.jar,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,*.pyc,*.pyo,**/cache/*,**/logs/*,play-*,**/target/*,*.hi,tags,**/dist/*,**/public/**/vendor/**,**/public/vendor/**
 
 set number                        " Show line numbers.
 set ruler                         " Show cursor position.
@@ -53,6 +53,7 @@ set smartcase                     " But case-sensitive if expression contains a 
 set incsearch                     " Highlight matches as you type.
 set hlsearch                      " Highlight matches.
 set showmatch                     " Show matching char (like {})
+set wrapscan                      " Circle search
 
 set nowrap                        " Turn off line wrapping.
 set scrolloff=7                   " Show 7 lines of context around the cursor.
@@ -69,7 +70,8 @@ set nowritebackup                 " And again.
 set noswapfile                    " Use an SCM instead of swap files
 
 set laststatus=2                   " Show the status line all the time
-set statusline=%{substitute(getcwd(),'^.*/','','')}\ [%n]\ %<%.99f\ %h%w%m%r%y%{fugitive#statusline()}%=%-16(\ %l,%c-%v\ %)%P
+" set statusline=%{substitute(getcwd(),'^.*/','','')}\ [%n]\ %<%.99f\ %h%w%m%r%y%{fugitive#statusline()}%=%-16(\ %l,%c-%v\ %)%P
+set statusline=%{substitute(getcwd(),'^.*/','','')}\ %<%.99f\ %h%w%m%r%y%=%-16(\ [%{getfsize(expand('%%:p'))}]\ %l,%c-%v\ %)%P
 
 " Tabs and indentation.
 set expandtab
@@ -80,17 +82,6 @@ set smartindent
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
-
-" Not sure what this does
-set ttyfast
-
-" Syntax coloring lines that are too long just slows down the world
-set synmaxcol=1024
-
-" Display invisible chars
-set listchars=tab:▸\ ,trail:□,eol:¬
-" Not by default
-set nolist
 
 " But make it easy to switch it to 2 or 4 spaces
 nmap <leader>2 :set tabstop=2<cr>:set shiftwidth=2<cr>
@@ -113,6 +104,17 @@ function! TabToggle()
 endfunction
 nmap <leader><tab> mz:execute TabToggle()<cr>'z
 
+" Not sure what this does
+set ttyfast
+
+" Syntax coloring lines that are too long just slows down the world
+set synmaxcol=1024
+
+" Display invisible chars
+set listchars=tab:▸\ ,trail:□,eol:¬
+" Not by default
+set nolist
+
 " Use perl regex style
 nnoremap / /\v
 vnoremap / /\v
@@ -126,7 +128,6 @@ nmap ! :!
 set gdefault
 
 " Highlight the current line and column
-" Don't do this - It makes window redraws painfully slow
 set nocursorline
 set nocursorcolumn
 
@@ -168,9 +169,6 @@ set nofoldenable
 noremap H ^
 noremap L $
 
-" Toggle line numbering
-nnoremap <silent> <leader>nn :set nonumber!<cr>
-
 " Toggle nowrap
 nnoremap <silent> <leader>nw :set nowrap!<cr>
 
@@ -207,12 +205,6 @@ vmap <space> "
 nmap <silent> gw :s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR>`'
 nmap <silent> gW :s/\(\%#[^\s]\+\)\(\_W\+\)\([^\s]\+\)/\3\2\1/<CR>`'
 
-" My information
-iab xdate =strftime("%d/%m/%Y %H:%M:%S")
-iab xname Thibault Duplessis
-iab xsigp Thibault Duplessis
-iab xsigw Thibault Duplessis
-
 " Diff only config
 if &diff
   nmap <leader>do :diffget<space>
@@ -229,6 +221,10 @@ set diffopt+=iwhite
 " Fast open vertical help
 nmap <leader>H <Esc>:vert help<cr>:vert resize 80<cr>:vert help<space>
 
+" Search next occurence
+nmap <tab> j
+nmap <S-tab> J
+
 " Clear search highlight
 nmap <silent> <leader>/ :nohl<cr>
 
@@ -243,7 +239,7 @@ nmap <leader>zs :%s#<C-r>=expand("<cword>")<cr>#
 
 " Global quick search-replace
 nmap <leader>sr :!ack -l <C-r>=expand("<cword>")<cr> \|
-  \ xargs perl -pi -E 's/<C-r>=expand("<cword>")<cr>//g'<left><left><left>
+      \ xargs perl -pi -E 's/<C-r>=expand("<cword>")<cr>//g'<left><left><left>
 
 " Ack
 let g:ackprg = 'ag --nogroup --nocolor --column'
@@ -264,6 +260,13 @@ nmap <leader>I :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$",""
 
 " Indent whole file, remove trailing whitespaces then save
 nmap <leader>i <Esc>:nohl<cr>mygg=G,I'y:w<cr>
+
+" indent js
+autocmd FileType javascript noremap <buffer> <leader>i :call JsBeautify()<cr>
+" indent html
+" autocmd FileType html noremap <buffer> <leader>i :call HtmlBeautify()<cr>
+" indent css or scss
+autocmd FileType css noremap <buffer> <leader>i :call CSSBeautify()<cr>
 
 " Expand current filed dir in console mode
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
@@ -343,6 +346,9 @@ let g:haddock_indexfiledir=$HOME.'/.cache/'
 nmap <leader>c<space> <Plug>CommentaryLine
 vmap <leader>c<space> <Plug>Commentary
 
+" ycm
+let g:ycm_min_num_of_chars_for_completion = 2
+
 " tabularize
 
 nmap <leader>T :Tabularize<space>
@@ -379,28 +385,6 @@ nmap <leader>gl :Git log -p %<cr>
 " Show tig
 nmap <silent>ti :!tig status<cr>
 
-" neocomplcache
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_smart_case = 'infercase'
-let g:neocomplcache_enable_auto_select = 0
-let g:neocomplcache_enable_cursor_hold_i = 1
-let g:neocomplcache_enable_insert_char_pre = 1
-let g:neocomplcache_temporary_dir = '~/.cache/neocon'
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-" Enable heavy omni completion.
-if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
-endif
-let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-" let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
-let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
-
 " Lusty juggler
 let g:LustyJugglerKeyboardLayout = "colemak"
 let g:LustyJugglerDefaultMappings = 0
@@ -426,16 +410,23 @@ let g:ctrlp_extensions = ['tag']
 let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_map = '<leader>mf'
-let g:ctrlp_user_command = {
-  \ 'types': {
-    \ 1: ['.git', 'cd %s && git ls-files'],
-    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-    \ },
-  \ 'fallback': ''
-  \ }
+" let g:ctrlp_user_command = {
+"   \ 'types': {
+"     \ 1: ['.git', 'cd %s && git ls-files'],
+"     \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+"     \ },
+"   \ 'fallback': ''
+"   \ }
 nmap <silent> <leader>mF :ClearCtrlPCache<cr>:CtrlP<cr>
 nmap <silent> <leader>mb :CtrlPBuffer<cr>
 nmap <silent> <leader>t :CtrlPTag<cr>
+
+" parameter text objects
+let g:no_parameter_object_maps = 1
+vmap     <silent> i, <Plug>ParameterObjectI
+omap     <silent> i, <Plug>ParameterObjectI
+vmap     <silent> a, <Plug>ParameterObjectA
+omap     <silent> a, <Plug>ParameterObjectA
 
 " Redraw
 nmap <leader>rr :redraw!<cr>
@@ -514,7 +505,3 @@ endif
 if filereadable('.vimrc.local')
   source .vimrc.local
 endif
-
-" Translate the content of selection
-" Classy.
-vmap <leader>ee :s/\n/ /e<cr>:s/\./;/e<cr><esc>0vLhy"=system('google-translate fr en ' . shellescape("<C-R>""))<cr>p:s/​//e<cr>:s/;/./e<cr>:nohl<cr>o<esc>

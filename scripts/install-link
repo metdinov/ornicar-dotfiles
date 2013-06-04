@@ -48,7 +48,6 @@ link inputrc ~/.inputrc
 link editrc ~/.editrc
 link vimperator ~/.vimperator
 link vimperatorrc ~/.vimperatorrc
-link vimperator-plugins/hipchat.js ./vimperator/plugin/hipchat.js
 link ghci ~/.ghci
 link xmonad ~/.xmonad
 link asoundrc ~/.asoundrc
@@ -63,5 +62,13 @@ link abcde.conf ~/.abcde.conf
 link stylish-haskell.yaml ~/.stylish-haskell.yaml
 mkdir -p ~/.cabal
 link cabal ~/.cabal/config
-#link sbt/global.sbt ~/.sbt/global.sbt
+link sbt/global.sbt ~/.sbt/global.sbt
+link sbt/sbtrc ~/.sbtrc
+mkdir -p ~/.mplayer
+link mplayer.conf ~/.mplayer/config
+link editorconfig ~/.editorconfig
 #link sbt/build.sbt ~/.sbt/build.sbt
+
+cd mongo-hacker
+make
+cd -

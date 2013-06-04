@@ -25,28 +25,11 @@ alias v="vim"
 # Ranger
 alias r="ranger"
 
-# AlsaMixer
-alias a="alsamixer"
-
 # Extract anything
 alias x="dtrx"
 
-# PHPUnit
-alias phpunituntil="phpunit --stop-on-failure --stop-on-error"
-
 # Resource this file
 alias reload=". ~/.zshrc"
-
-# Start web server
-alias startwebserver="sudo /etc/rc.d/nginx start && sudo /etc/rc.d/php-fpm start && sudo /etc/rc.d/mongodb start && sudo /etc/rc.d/redis start"
-# Stop web server
-alias stopwebserver="sudo /etc/rc.d/nginx stop && sudo /etc/rc.d/php-fpm stop && sudo /etc/rc.d/mongodb stop && sudo /etc/rc.d/redis stop"
-# Restart web server
-alias restartwebserver="sudo /etc/rc.d/nginx restart && sudo /etc/rc.d/php-fpm restart && sudo /etc/rc.d/mongodb restart && sudo /etc/rc.d/redis restart"
-
-alias start="sudo rc.d start"
-alias restart="sudo rc.d restart"
-alias stop="sudo rc.d stop"
 
 # Run IM program
 alias im="weechat-curses"
@@ -76,3 +59,9 @@ alias htags='find ./ -name "*.*hs" | xargs hasktags'
 alias trans=google-translate
 alias enfr="google-translate en fr "
 alias fren="google-translate fr en "
+
+alias xtcf="startxfce4"
+
+alias startservers="_ systemctl start nginx && _ systemctl start mongodb && _ systemctl start elasticsearch"
+
+alias halt="echo 'Use poweroff instead'"
